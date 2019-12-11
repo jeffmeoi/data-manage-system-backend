@@ -84,7 +84,6 @@ public class ImageController {
 
     @PostMapping(value = "/batch")
     public ErrorCode batchAddImage(HttpSession session, @RequestParam("file") MultipartFile file[]){
-
         return ErrorCode.success();
     }
 }
