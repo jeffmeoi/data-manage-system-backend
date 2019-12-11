@@ -13,7 +13,7 @@ public class ImageInfo {
             "scale", "url", "thumbUrl", "user_id", "create_time", "update_time"
     };
 
-    private Integer id;
+    private Integer id;//no need
     private String country;
     private String position;
     private Integer typeID;
@@ -26,19 +26,20 @@ public class ImageInfo {
     private Double scale;
     private String url;
     private String thumbUrl;
-    private Integer userID;
-    private Date createTime;
-    private Date updateTime;
+    private Integer userID;//no need
+    private Date createTime;//no need
+    private Date updateTime;//no need
 
 
     public ImageInfo() {
     }
 
-    public ImageInfo(Integer id, String country, String position, Integer typeID, Double ppi, Double longitude, Double latitude, Date gatherTime, Integer gatherDuration, Double scale, String url, String thumbUrl, Integer userID, Date createTime, Date updateTime) {
+    public ImageInfo(Integer id, String country, String position, Integer typeID, String type, Double ppi, Double longitude, Double latitude, Date gatherTime, Integer gatherDuration, Double scale, String url, String thumbUrl, Integer userID, Date createTime, Date updateTime) {
         this.id = id;
         this.country = country;
         this.position = position;
         this.typeID = typeID;
+        this.type = type;
         this.ppi = ppi;
         this.longitude = longitude;
         this.latitude = latitude;

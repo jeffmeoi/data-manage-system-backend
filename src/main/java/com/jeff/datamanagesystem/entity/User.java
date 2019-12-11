@@ -20,14 +20,14 @@ public class User {
     private String name;
     private Integer status;
     private String statusName;
-    private Integer creatorID;
-    private Date createTime;
-    private Date updateTime;
+    private Integer creatorID;// no need
+    private Date createTime;// no need
+    private Date updateTime;// no need
 
     public User() {
     }
 
-    public User(Integer id, String username, String password, String email, String name, Integer status, Date createTime, Date updateTime) {
+    public User(Integer id, String username, String password, String email, String name, Integer status, String statusName, Date createTime, Date updateTime) {
         this.id = id;
         this.username = username;
         this.password = password;

@@ -11,12 +11,12 @@ public class Type {
             "id", "name", "description", "user_id", "create_time", "update_time"
     };
 
-    private Integer id;
+    private Integer id;// no need
     private String name;
     private String description;
-    private Integer userID;
-    private Date createTime;
-    private Date updateTime;
+    private Integer userID;// no need
+    private Date createTime;// no need
+    private Date updateTime;// no need
 
     public Type() {
     }
