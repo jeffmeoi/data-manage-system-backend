@@ -12,7 +12,6 @@ public class ImageInfo {
             "id", "country", "position", "type_id", "ppi", "longitude", "latitude", "gather_time", "gather_duration",
             "scale", "url", "thumbUrl", "user_id", "create_time", "update_time"
     };
-
     private Integer id;
     private String country;
     private String position;

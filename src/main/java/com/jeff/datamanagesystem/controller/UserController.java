@@ -13,6 +13,7 @@ import com.jeff.datamanagesystem.service.UserService;
 import com.jeff.datamanagesystem.util.FileUtil;
 import com.jeff.datamanagesystem.util.ListUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,7 +34,7 @@ public class UserController {
     private RoleService roleService;
 
     @PutMapping(value = "/login")
-    public ErrorCode login(HttpSession session, String username, String password) throws LoginException {
+    public ErrorCode login(HttpSession session, @RequestParam String username, @RequestParam String password) throws LoginException {
         Integer userID = userService.login(session, username, password);
         return ErrorCode.success(userID);
     }
@@ -46,7 +47,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/register")
-    public ErrorCode register(HttpSession session, @RequestBody User user) {
+    public ErrorCode register(HttpSession session, @RequestBody @Validated User user) {
         user.setStatus(Role.USER.getStatus());
         userService.addUser(user, roleService.getSelfID(session));
         return ErrorCode.success();

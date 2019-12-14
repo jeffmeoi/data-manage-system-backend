@@ -13,6 +13,7 @@ import com.jeff.datamanagesystem.service.RoleService;
 import com.jeff.datamanagesystem.util.FileUtil;
 import com.jeff.datamanagesystem.util.ListUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,7 +37,7 @@ public class ImageController {
 
 
     @PostMapping(value = "")
-    public ErrorCode addImage(HttpSession session, @RequestBody ImageInfo imageInfo){
+    public ErrorCode addImage(HttpSession session, @RequestBody @Validated ImageInfo imageInfo){
         if(!roleService.isAdmin(session))
             throw new AccessException();
         imageService.addImageInfo(imageInfo, roleService.getSelfID(session));
@@ -52,7 +53,7 @@ public class ImageController {
     }
 
     @PutMapping(value = "/{id}")
-    public ErrorCode updateImage(HttpSession session,@PathVariable Integer id, @RequestBody ImageInfo imageInfo){
+    public ErrorCode updateImage(HttpSession session, @PathVariable Integer id, @RequestBody ImageInfo imageInfo){
         if(!roleService.isAdmin(session))
             throw new AccessException();
         imageInfo.setId(id);
