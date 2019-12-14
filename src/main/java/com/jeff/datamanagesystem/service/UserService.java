@@ -4,14 +4,17 @@ import com.jeff.datamanagesystem.entity.User;
 
 import javax.security.auth.login.LoginException;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 
 public interface UserService {
     List getTotalCount();
-    int addUser(User user);
+    int addUser(User user, Integer userID);
+    void addUsers(File file, Integer userID) throws IOException;
     int updateUser(User user);
-    int editUser(User user);
+    int editUser(User user, Integer userID);
     int deleteUser(Integer id);
     User getUser(Integer id);
     User getUser(String username);

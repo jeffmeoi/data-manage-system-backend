@@ -28,7 +28,7 @@ public class MapperTest {
 
     @Test
     public void UserMapperTest(){
-        Assert.assertEquals(userMapper.addUser(new User(null, "username", "password", "E-mail" , "name",0, new Date(), new Date())), 1);
+        Assert.assertEquals(userMapper.addUser(new User(null, "username", "password", "E-mail" , "name",0, null, new Date(), new Date())), 1);
         System.out.println(userMapper.getUserByUsername("admin"));
     }
 

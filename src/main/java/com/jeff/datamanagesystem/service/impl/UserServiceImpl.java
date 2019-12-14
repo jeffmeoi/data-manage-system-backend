@@ -1,16 +1,21 @@
 package com.jeff.datamanagesystem.service.impl;
 
 import com.jeff.datamanagesystem.entity.User;
+import com.jeff.datamanagesystem.enums.Role;
 import com.jeff.datamanagesystem.exception.*;
 import com.jeff.datamanagesystem.mapper.UserMapper;
 import com.jeff.datamanagesystem.service.UserService;
+import com.jeff.datamanagesystem.util.ExcelUtil;
 import com.jeff.datamanagesystem.util.MD5Util;
+import org.apache.poi.ss.usermodel.Row;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.security.auth.login.LoginException;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 
@@ -20,7 +25,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
-
 
     @Override
     public List getTotalCount() {
@@ -33,15 +37,28 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int addUser(User user) {
-        user.setId(null);
+    public int addUser(User user, Integer userID) {
+        user.setId(userID);
         user.setCreateTime(new Date());
         user.setUpdateTime(user.getCreateTime());
-        System.out.println(user.getPassword());
+        user.setCreatorID(userID);
         user.setPassword(MD5Util.getMD5(user.getPassword()));
-        System.out.println(user.getPassword());
-        int result = userMapper.addUser(user);
-        return result;
+        return userMapper.addUser(user);
+    }
+
+    @Override
+    public void addUsers(File file, Integer userID) throws IOException {
+        Iterator rows = ExcelUtil.getRowIterator(file);
+        rows.next();
+        while(rows.hasNext()) {
+            List<String> cellValues = ExcelUtil.getCellValues((Row) rows.next());
+            String username = cellValues.get(0);
+            String password = cellValues.get(1);
+            String email = cellValues.get(2);
+            String name = cellValues.get(3);
+            addUser(new User(null, username, password, email, name, Role.USER.getStatus(), null, null, null), userID);
+        }
+        file.delete();
     }
 
     @Override
@@ -59,9 +76,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int editUser(User user) {
+    public int editUser(User user, Integer userID) {
         if(user.getId() == null)
-            return addUser(user);
+            return addUser(user, userID);
         else
             return updateUser(user);
     }

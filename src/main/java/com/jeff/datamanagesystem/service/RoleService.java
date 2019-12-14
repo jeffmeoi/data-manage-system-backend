@@ -15,6 +15,8 @@ public interface RoleService {
 
     boolean isSelf(HttpSession session, Integer id);
 
+    Integer getSelfID(HttpSession session);
+
     List getRoleList();
 
     Map<String, Object> getRole(Integer id);

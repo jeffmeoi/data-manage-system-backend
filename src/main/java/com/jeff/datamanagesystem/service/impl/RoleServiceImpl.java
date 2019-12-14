@@ -39,6 +39,14 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public Integer getSelfID(HttpSession session) {
+        User user = (User)session.getAttribute("user");
+        if(user == null)
+            return null;
+        return user.getId();
+    }
+
+    @Override
     public List getRoleList(){
         List<Map> list = new LinkedList<>();
         for(Role role : Role.values()){

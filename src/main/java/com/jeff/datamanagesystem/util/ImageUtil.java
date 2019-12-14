@@ -19,8 +19,8 @@ import java.util.List;
  **/
 public class ImageUtil {
 
-    public static final String IMAGE_PATH  = FileUtil.CLASSPATH + "static/upfile/img/";
-    public static final String THUMB_IMAGE_PATH  = IMAGE_PATH + "thumb/";
+    private static final String IMAGE_PATH  = FileUtil.IMAGE_PATH;
+    private static final String THUMB_IMAGE_PATH  = FileUtil.THUMB_IMAGE_PATH;
     public static final String SUFFIX = "-thumbnail";
 
     private static final double DEFAULT_SCALE = 0.8d;
@@ -115,30 +115,12 @@ public class ImageUtil {
                 File[] subFiles = file.listFiles();
                 compressRecurse(subFiles, pathname + File.separator + file.getName());
             } else {
-                String extension = getFileExtention(file.getName());
-                if (!file.getName().contains(SUFFIX) && isImage(extension)) {
+                String extension = FileUtil.getFileExtention(file.getName());
+                if (!file.getName().contains(SUFFIX) && FileUtil.isImage(extension)) {
                     generateThumbnail2Directory(pathname, file.getAbsolutePath());
                 }
             }
         }
-    }
-
-    /**
-     * 根据文件扩展名判断文件是否图片格式
-     *
-     * @param extension 文件扩展名
-     * @return
-     */
-    public static boolean isImage(String extension) {
-        String[] imageExtension = new String[]{"jpeg", "jpg", "gif", "bmp", "png"};
-
-        for (String e : imageExtension) if (extension.toLowerCase().equals(e)) return true;
-
-        return false;
-    }
-
-    public static String getFileExtention(String fileName) {
-        return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
 
 }

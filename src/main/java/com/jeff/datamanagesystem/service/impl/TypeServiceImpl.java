@@ -5,10 +5,14 @@ import com.jeff.datamanagesystem.exception.NullException;
 import com.jeff.datamanagesystem.mapper.ImageInfoMapper;
 import com.jeff.datamanagesystem.mapper.TypeMapper;
 import com.jeff.datamanagesystem.service.TypeService;
+import com.jeff.datamanagesystem.util.ExcelUtil;
+import org.apache.poi.ss.usermodel.Row;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 @Service
@@ -41,12 +45,13 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public int addType(Type type) {
-        type.setId(null);
+    public int addType(Type type, Integer userID) {
+        type.setId(userID);
         type.setCreateTime(new Date());
         type.setUpdateTime(type.getCreateTime());
         return typeMapper.addType(type);
     }
+
 
     @Override
     public int updateType(Type type) {
@@ -57,9 +62,9 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public int editType(Type type) {
+    public int editType(Type type, Integer userID) {
         if(type.getId() == null)
-            return addType(type);
+            return addType(type, userID);
         else
             return updateType(type);
     }
@@ -77,5 +82,18 @@ public class TypeServiceImpl implements TypeService {
     @Override
     public List<Type> getTypeList() {
         return typeMapper.getTypeList();
+    }
+
+    @Override
+    public void addTypes(File file, Integer userID) throws IOException {
+        Iterator rows = ExcelUtil.getRowIterator(file);
+        rows.next();
+        while(rows.hasNext()) {
+            List<String> cellValues = ExcelUtil.getCellValues((Row) rows.next());
+            String name = cellValues.get(0);
+            String description = cellValues.get(1);
+            typeMapper.addType(new Type(null, name, description, userID, new Date(), new Date()));
+        }
+        file.delete();
     }
 }

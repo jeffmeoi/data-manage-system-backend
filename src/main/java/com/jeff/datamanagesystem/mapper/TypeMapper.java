@@ -35,6 +35,9 @@ public interface TypeMapper {
     @Select("select name from type where id=#{id} limit 1")
     String getTypeNameByID(Integer id);
 
+    @Select("select id from type where name=#{name} limit 1")
+    Integer getTypeIDbyName(String name);
+
     @ResultMap("type")
     @Select("select id, name, description, user_id, create_time, update_time from type")
     List<Type> getTypeList();
