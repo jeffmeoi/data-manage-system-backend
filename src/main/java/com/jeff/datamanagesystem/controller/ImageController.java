@@ -37,7 +37,7 @@ public class ImageController {
 
 
     @PostMapping(value = "")
-    public ErrorCode addImage(HttpSession session, @RequestBody @Validated ImageInfo imageInfo){
+    public ErrorCode addImage(HttpSession session, @RequestBody ImageInfo imageInfo){
         if(!roleService.isAdmin(session))
             throw new AccessException();
         imageService.addImageInfo(imageInfo, roleService.getSelfID(session));

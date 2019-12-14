@@ -47,7 +47,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/register")
-    public ErrorCode register(HttpSession session, @RequestBody @Validated User user) {
+    public ErrorCode register(HttpSession session, @RequestBody User user) {
         user.setStatus(Role.USER.getStatus());
         userService.addUser(user, roleService.getSelfID(session));
         return ErrorCode.success();
