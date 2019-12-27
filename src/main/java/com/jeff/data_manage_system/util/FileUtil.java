@@ -8,9 +8,11 @@ public class FileUtil {
 
     public static final String CLASSPATH  = Thread.currentThread().getContextClassLoader().getResource("").getPath();
     public static final String STATIC_PATH = CLASSPATH + "static" + File.separator;
-    public static final String UPLOAD_PATH = STATIC_PATH + "upfile" + File.separator;
-    public static final String TEMP_PATH = STATIC_PATH + "tmp" + File.separator;
-    public static final String IMAGE_PATH  = FileUtil.UPLOAD_PATH + "img" + File.separator;
+    public static final String FILEPATH = "/www/files/";
+    // public static final String FILEPATH = STATIC_PATH + "files/";
+    public static final String UPLOAD_PATH = FILEPATH + "upfile" + File.separator;
+    public static final String TEMP_PATH = FILEPATH + "tmp" + File.separator;
+    public static final String IMAGE_PATH  = UPLOAD_PATH + "img" + File.separator;
     public static final String THUMB_IMAGE_PATH  = IMAGE_PATH + "thumb" + File.separator;
 
     public static File transferTo(String destPath, String filename, MultipartFile file) throws IOException {

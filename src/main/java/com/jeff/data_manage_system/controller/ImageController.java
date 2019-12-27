@@ -84,8 +84,8 @@ public class ImageController {
             throw new FileNotFoundException();
         Map<String, String> map = new HashMap<>();
         String filename = imageService.uploadImage(file);
-        map.put("url", "/upfile/img/" + filename);
-        map.put("thumbUrl", "/upfile/img/thumb/" + imageService.compressImage(filename));
+        map.put("url", "/files/upfile/img/" + filename);
+        map.put("thumbUrl", "/files/upfile/img/thumb/" + imageService.compressImage(filename));
         return ErrorCode.success(map);
     }
 

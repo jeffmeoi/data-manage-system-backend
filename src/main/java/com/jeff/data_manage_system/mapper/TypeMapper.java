@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface TypeMapper {
 
-    @Insert("insert into type (id, name, description, user_id, create_time, update_time) values(#{id}, #{name}, #{description}, #{userID}, #{createTime}, #{updateTime})")
+    @Insert("insert into type (name, description, user_id, create_time, update_time) values(#{name}, #{description}, #{userID}, #{createTime}, #{updateTime})")
     @Options(useGeneratedKeys = true)
     int addType(Type type);
 

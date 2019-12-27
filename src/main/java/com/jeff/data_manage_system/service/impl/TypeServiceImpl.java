@@ -46,7 +46,7 @@ public class TypeServiceImpl implements TypeService {
 
     @Override
     public int addType(Type type, Integer userID) {
-        type.setId(userID);
+        type.setUserID(userID);
         type.setCreateTime(new Date());
         type.setUpdateTime(type.getCreateTime());
         return typeMapper.addType(type);

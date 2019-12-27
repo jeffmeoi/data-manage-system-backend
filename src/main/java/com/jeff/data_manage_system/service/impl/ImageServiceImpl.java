@@ -40,6 +40,9 @@ public class ImageServiceImpl implements ImageService {
         if(!FileUtil.isImage(ext))
             throw new FileTypeException();
         String fileName = String.format("%s.%s", UUID.randomUUID().toString(), ext);
+        File dir = new File(FileUtil.IMAGE_PATH);
+        if(!dir.exists())
+            dir.mkdirs();
         FileUtil.transferTo(FileUtil.IMAGE_PATH, fileName, file);
         return fileName;
     }
@@ -64,6 +67,7 @@ public class ImageServiceImpl implements ImageService {
     public void addImages(File zip, Integer userID) throws IOException, UnzipException, ParseException {
         String ext = FileUtil.getFileExtention(zip.getName());
         String filenameWithoutExt = zip.getName().substring(0, zip.getName().length() - ext.length() - 1);
+        File tmpDir = new File(FileUtil.TEMP_PATH);
         String destPath = FileUtil.TEMP_PATH + File.separator + filenameWithoutExt;
         String rootEntry = ZipUtil.unZip(zip, destPath);
         File excel = new File(destPath + File.separator + "ImageInfo.xlsx");
@@ -86,8 +90,8 @@ public class ImageServiceImpl implements ImageService {
             String filename = String.format("%s.%s", UUID.randomUUID().toString(), ext);
             FileUtil.copyTo(FileUtil.IMAGE_PATH, filename, image);
 
-            String url = "/upfile/img/" + filename;
-            String thumbUrl = "/upfile/img/thumb/" + compressImage(filename);
+            String url = "/files/upfile/img/" + filename;
+            String thumbUrl = "/files/upfile/img/thumb/" + compressImage(filename);
 
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String country = cellValues.get(1);

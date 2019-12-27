@@ -97,26 +97,26 @@ public interface ImageInfoMapper {
                         WHERE("scale like concat('%', #{scale}, '%')");
                     if(imageFilterParams.getCreateTime() != null)
                         WHERE("create_time like concat('%" + simpleDateFormat.format(imageFilterParams.getCreateTime()) + "%')");
-                    if(imageFilterParams.getFromX() != null && imageFilterParams.getToX() != null){
+                    if(imageFilterParams.getFromX() != null)
                         WHERE("location_x >= #{fromX}");
+                    if(imageFilterParams.getToX() != null)
                         WHERE("location_x <= #{toX}");
-                    }
-                    if(imageFilterParams.getFromY() != null && imageFilterParams.getToY() != null){
-                        WHERE("location_y >= #{fromX}");
-                        WHERE("location_y <= #{toX}");
-                    }
-                    if(imageFilterParams.getFromDuration() != null && imageFilterParams.getToDuration() != null){
+                    if(imageFilterParams.getFromY() != null)
+                        WHERE("location_y >= #{fromY}");
+                    if(imageFilterParams.getToY() != null)
+                        WHERE("location_y <= #{toY}");
+                    if(imageFilterParams.getFromDuration() != null)
                         WHERE("gather_duration >= #{fromDuration}");
+                    if(imageFilterParams.getToDuration() != null)
                         WHERE("gather_duration <= #{toDuration}");
-                    }
-                    if(imageFilterParams.getFromScale() != null && imageFilterParams.getToScale() != null){
+                    if(imageFilterParams.getFromScale() != null)
                         WHERE("scale >= #{fromScale}");
+                    if(imageFilterParams.getToScale() != null)
                         WHERE("scale <= #{toScale}");
-                    }
-                    if(imageFilterParams.getFromPPi() != null && imageFilterParams.getToPPi() != null){
+                    if(imageFilterParams.getFromPPi() != null)
                         WHERE("ppi >= #{fromPPi}");
+                    if(imageFilterParams.getToPPi() != null)
                         WHERE("ppi <= #{toPPi}");
-                    }
                 }
             }}.toString();
         }
